@@ -41,7 +41,7 @@ $club_data = $response_data->data;
 // Extract only first 50 user data
 $club_data = array_slice($club_data, 0, 49);
 
-// Traverse array and print employee data
+// Traverse array and print club data
 foreach ($club_data as $club) {
     echo "name: " . $club->club_name;
     echo "<br />";
