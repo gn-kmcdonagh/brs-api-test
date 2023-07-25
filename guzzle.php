@@ -25,7 +25,7 @@ if (200 == $response->getStatusCode()) {
     $data = json_decode($name);
     $id_data = json_decode($id);
 } else {
-    echo 'Fix code in line 22';
+    echo 'Fix if statement';
 }
 
 
