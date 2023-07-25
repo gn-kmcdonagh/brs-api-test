@@ -35,7 +35,17 @@ $club_data = $id_data->_results;
 ?>
 <html>
 <body>
+<style>
+    h1{font-family: sans-serif; font-size: 50px; padding: 40px; margin-bottom: 10px; margin-left: 0;  width: 100%}
+    li{list-style: none; font-size: 20px; font-family: sans-serif;}
+    body{background: #30E8BF;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #FF8235, #30E8BF);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #FF8235, #30E8BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+</style>
 <ul>
+    <h1>BRS GOLF CLUB LINKS</h1>
+
 <?php foreach ($club_data as $club):
     $uri = 'https://www.brsgolf.com/' . $club->club_id;
     ?>

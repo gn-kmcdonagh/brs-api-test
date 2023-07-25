@@ -71,7 +71,7 @@ $clubData = $data->_results;
                         <p class="card-text">
                             <?php foreach ($club->address as $addressLine){
                                 if ($addressLine != ''){
-                                   echo $addressLine. ' , ';
+                                   echo $addressLine. '  <br />';
                                 }
                             }
                             ?>
