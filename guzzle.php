@@ -35,7 +35,7 @@ $club_data = $id_data->_results;
 ?>
 <html>
 <body>
-
+<ul>
 <?php foreach ($club_data as $club):
     $uri = 'https://www.brsgolf.com/' . $club->club_id;
     ?>

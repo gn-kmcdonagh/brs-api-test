@@ -17,13 +17,13 @@ $data = json_decode($result);
 
 
 // All club data exists in 'data' object
-$club_data = $data->_results;
+$clubData = $data->_results;
 
 // Extract only first 50 club data
 //$club_data = array_slice($club_data, 0, 4);
 
 // Traverse array and print club data
-foreach ($club_data as $club) {
+foreach ($clubData as $club) {
    echo "name: " .$club->name;
    echo "<br/>";
 }
