@@ -13,38 +13,19 @@ $result=curl_exec ($ch);
 $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);   //get status code
 curl_close ($ch);
 
+$data = json_decode($result);
 
-// Initiate curl session in a variable (resource)
-$curl_handle = curl_init();
-
-// Set the curl URL option
-curl_setopt($curl_handle, CURLOPT_URL, $URL);
-
-// This option will return data as a string instead of direct output
-curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
-
-// Execute curl & store data in a variable
-$curl_data = curl_exec($curl_handle);
-
-curl_close($curl_handle);
-
-// Decode JSON into PHP array
-$response_data = json_decode($curl_data);
-
-// Print all data if needed
-// print_r($response_data);
-// die();
 
 // All club data exists in 'data' object
-$club_data = $response_data->data;
+$club_data = $data->_results;
 
 // Extract only first 50 club data
-$club_data = array_slice($club_data, 0, 49);
+//$club_data = array_slice($club_data, 0, 4);
 
 // Traverse array and print club data
 foreach ($club_data as $club) {
-    echo "name: " . $club->club_name;
-    echo "<br />";
+    echo "name: " . $club->name;
+   echo "<br />";
 }
 
 
