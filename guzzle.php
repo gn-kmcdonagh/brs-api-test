@@ -9,10 +9,10 @@ $client = new \GuzzleHttp\Client;
 
 
 
-$response = $client->get('https://www.brsgolf.com/api/v2/clubs', [
+$response = $client->request('GET', $URL ,[
     'auth' => [
-        'user' => $username,
-        'passwd' => $password
+      $username,
+      $password
     ]
 ]);
 
@@ -21,17 +21,38 @@ $response = $client->get('https://www.brsgolf.com/api/v2/clubs', [
 
 if (200 == $response->getStatusCode()) {
     $name = $response->getBody();
+    $id = $response->getBody();
     $data = json_decode($name);
-    print_r($data);
+    $id_data = json_decode($id);
+} else {
+    echo 'Fix code in line 22';
 }
 
 
-$club_data = $data->_result;
-
-var_dump($data);
 
 
-foreach ($club_data as $club) {
-    echo "name: " .$club->name;
-    echo "<br/>";
-}
+$club_data = $data->_results;
+$club_data = $id_data->_results;
+
+
+
+
+
+
+?>
+<html>
+<body>
+
+<?php foreach($club_data as $club):
+    $uri = 'https://www.brsgolf.com/'. $club->club_id;
+?>
+<li>
+    <a href="<?php echo $uri; ?>">
+        <?= $club->name; ?>
+        <?= $club->club_id; ?>
+    </a>
+</li>
+<?php endforeach; ?>
+</ul>
+</body>
+</html>
