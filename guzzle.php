@@ -5,14 +5,11 @@ $URL='https://www.brsgolf.com/api/v2/clubs';
 
 require_once "./vendor/autoload.php";
 
-$client = new \GuzzleHttp\Client([
-    // Base URI is used with relative requests
-    'base_uri' => 'https://reqres.in',
-]);
+$client = new \GuzzleHttp\Client;
 
 
 
-$response = $client->get('https://httpbin.org/basic-auth/user/passwd', [
+$response = $client->get('https://www.brsgolf.com/api/v2/clubs', [
     'auth' => [
         'user' => $username,
         'passwd' => $password
@@ -20,14 +17,21 @@ $response = $client->get('https://httpbin.org/basic-auth/user/passwd', [
 ]);
 
 
-$name = $response->getBody();
-$data = json_decode($name);
-print_r($data);
 
-echo $response->getStatusCode();
 
 if (200 == $response->getStatusCode()) {
     $name = $response->getBody();
     $data = json_decode($name);
     print_r($data);
+}
+
+
+$club_data = $data->_result;
+
+var_dump($data);
+
+
+foreach ($club_data as $club) {
+    echo "name: " .$club->name;
+    echo "<br/>";
 }

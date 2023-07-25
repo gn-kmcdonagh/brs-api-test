@@ -24,8 +24,8 @@ $club_data = $data->_results;
 
 // Traverse array and print club data
 foreach ($club_data as $club) {
-    echo "name: " . $club->name;
-   echo "<br />";
+   echo "name: " .$club->name;
+   echo "<br/>";
 }
 
 
