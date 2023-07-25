@@ -1,25 +1,36 @@
 <?php
-$username='brsmobileapp';
-$password='QB6T9vmVw8WcbTZv8bGUJMs2E3SKU4jLBNJscNMZx4hyZdwfcta9ALqS4THXVxw679BFh5FsPEYbSUfHxSmvJVX9Wfm5gCPmterEJTWMzUjt8ej3kLwEbP7CkhLbfVAC8FvaxYDx2KzVvttMDsWxhNzmVqeqvjmVbFSNA2LgkfyDXTSD7XbPpNQRyZQcgzHSRuQVSQ5SZujDYjfm2TnetbP6Dk8gbf7Pae9vWA4kg5Bj84SsshnqMgGTFjPVeYr8';
-$URL='https://www.brsgolf.com/api/v2/clubs';
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL,$URL);
-curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
-curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-$result=curl_exec ($ch);
-$status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);   //get status code
-curl_close ($ch);
+use GuzzleHttp\Client;
 
-$data = json_decode($result);
-$address = json_decode($result);
+$username = 'brsmobileapp';
+$password = 'QB6T9vmVw8WcbTZv8bGUJMs2E3SKU4jLBNJscNMZx4hyZdwfcta9ALqS4THXVxw679BFh5FsPEYbSUfHxSmvJVX9Wfm5gCPmterEJTWMzUjt8ej3kLwEbP7CkhLbfVAC8FvaxYDx2KzVvttMDsWxhNzmVqeqvjmVbFSNA2LgkfyDXTSD7XbPpNQRyZQcgzHSRuQVSQ5SZujDYjfm2TnetbP6Dk8gbf7Pae9vWA4kg5Bj84SsshnqMgGTFjPVeYr8';
+$URL = 'https://www.brsgolf.com/api/v2/clubs';
+
+require_once "./vendor/autoload.php";
+
+$client = new Client;
 
 
-// All club data exists in 'data' object
+$response = $client->request('GET', $URL, [
+    'auth' => [
+        $username,
+        $password
+    ]
+]);
+
+
+if (200 == $response->getStatusCode()) {
+    $name = $response->getBody();
+    $id = $response->getBody();
+    $data = json_decode($name);
+    $id_data = json_decode($id);
+} else {
+    echo 'Fix if statement';
+}
+
+
 $club_data = $data->_results;
-$club_add = $address->_results;
+$club_data = $id_data->_results;
 
 ?>
 <!DOCTYPE html>
@@ -39,8 +50,8 @@ $club_add = $address->_results;
 
     </header>
 </div>
-<?php foreach ($club_data as $club):
-echo $club->name;?>
+<?php foreach ($club_data as $club):?>
+
 <div class="py-5 bg-body-tertiary">
     <div class="container">
 
@@ -49,83 +60,32 @@ echo $club->name;?>
             <div class="col">
                 <div class="card shadow-sm h-100">
                     <div class="card-header">
-                        <?php echo $club_data->name;?>
+                      <?php  echo $club->name;?>
                     </div>
                     <div class="card-body">
                         <p class="card-text">
+                            <?php foreach ($club->address as $addressLine){
+                                if ($addressLine != ''){
+                                   echo $addressLine. ' , ';
+                                }
+                            }
+                            ?>
 
 
-</p>
-<div class="d-flex justify-content-between align-items-center">
-    <div class="btn-group">
-        <button type="button" class="btn btn-sm btn-outline-secondary">Visit</button>
-    </div>
-    <small class="text-body-secondary">(aberdovey)</small>
-</div>
-</div>
-</div>
-</div>
-
-<div class="col">
-    <div class="card shadow-sm h-100">
-        <div class="card-header">
-            Abergele Golf Club
-        </div>
-        <div class="card-body">
-            <p class="card-text">
-                Tan-y-Gopa Road, Abergele, Conwy, Wales, LL22 8DS
-            </p>
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Visit</button>
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Visit</button>
+                            </div>
+                            <small class="text-body-secondary"> <?php echo $club->club_id;?></small>
+                        </div>
+                    </div>
                 </div>
-                <small class="text-body-secondary">(abergele)</small>
             </div>
         </div>
     </div>
 </div>
 
-<div class="col">
-    <div class="card shadow-sm h-100">
-        <div class="card-header">
-            Abridge Golf Club
-        </div>
-        <div class="card-body">
-            <p class="card-text">
-                Epping Lane, Stapleford Tawney, Essex, England, RM4 1ST
-            </p>
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Visit</button>
-                </div>
-                <small class="text-body-secondary">(abridge)</small>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col">
-    <div class="card shadow-sm">
-        <div class="card-header">
-            Adare Manor Golf Club
-        </div>
-        <div class="card-body">
-            <p class="card-text">
-                Adare (Old Course), Limerick, Ireland
-            </p>
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Visit</button>
-                </div>
-                <small class="text-body-secondary">(adaremanor)</small>
-            </div>
-        </div>
-    </div>
-</div>
-
-</div>
-</div>
-</div>
 
 
 <?php endforeach;?>
