@@ -21,16 +21,16 @@ $response = $client->request('GET', $URL, [
 
 if (200 == $response->getStatusCode()) {
     $name = $response->getBody();
-    $id = $response->getBody();
+
     $data = json_decode($name);
-    $id_data = json_decode($id);
+
 } else {
     echo 'Fix if statement';
 }
 
 
 $club_data = $data->_results;
-$club_data = $id_data->_results;
+
 
 ?>
 <html>
