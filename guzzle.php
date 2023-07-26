@@ -2,51 +2,26 @@
 
 
 global $data;
+require_once "./vendor/autoload.php";
 
-use GuzzleHttp\Client;
+
 
 $username = 'brsmobileapp';
 $password = 'QB6T9vmVw8WcbTZv8bGUJMs2E3SKU4jLBNJscNMZx4hyZdwfcta9ALqS4THXVxw679BFh5FsPEYbSUfHxSmvJVX9Wfm5gCPmterEJTWMzUjt8ej3kLwEbP7CkhLbfVAC8FvaxYDx2KzVvttMDsWxhNzmVqeqvjmVbFSNA2LgkfyDXTSD7XbPpNQRyZQcgzHSRuQVSQ5SZujDYjfm2TnetbP6Dk8gbf7Pae9vWA4kg5Bj84SsshnqMgGTFjPVeYr8';
-$URL = 'https://www.brsgolf.com/api/v2/clubs';
+$url = 'https://www.brsgolf.com/api/v2/clubs';
 
-require_once "./vendor/autoload.php";
-
+use GuzzleHttp\Client;
 $client = new Client;
 
 
-$response = $client->request('GET', $URL, [
+$response = $client->request('GET', $url, [
     'auth' => [
         $username,
         $password
     ]
 ]);
 
-//
-//if (200 == $response->getStatusCode()) {
-//    $name = $response->getBody();
-//
-//    $data = json_decode($name);
-//    $clubData =$data->_results;
-//
-//         foreach ($clubData as $club):
-//        $uri = 'https://www.brsgolf.com/' . $club->club_id;
-//        ?>
-<!--        <li>-->
-<!---->
-<!--            --><?php //= $club->name; ?>
-<!--            <a href="--><?php //echo $uri ?><!--">-->
-<!--                --><?php //echo "(" . $uri . $club->club_id . ")"; ?>
-<!--            </a>-->
-<!--        </li>-->
-<!---->
-<!---->
-<!---->
-<!---->
-<!---->
-<!-- --><?php //endforeach;
-//} else {
-//echo ' no clubs found';
-//}
+
 
 
 ?>
@@ -77,19 +52,20 @@ $response = $client->request('GET', $URL, [
         background: linear-gradient(to right, #FF8235, #30E8BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
 </style>
-<ul>
+
     <h1>BRS GOLF CLUB LINKS</h1>
 
     <?php
     if (200 == $response->getStatusCode()) {
-        $name = $response->getBody();
+        $responseData = $response->getBody();
 
-        $data = json_decode($name);
-        $clubData = [];
+        $data = json_decode($responseData);
+        $clubData = $data->_results;
 
         foreach ($clubData as $club):
             $uri = 'https://www.brsgolf.com/' . $club->club_id;
             ?>
+        <ul>
             <li>
 
                 <?= $club->name; ?>
@@ -97,14 +73,16 @@ $response = $client->request('GET', $URL, [
                     <?php echo "(" . $uri . $club->club_id . ")"; ?>
                 </a>
             </li>
-
+</ul>
 
         <?php endforeach;
     } else { ?>
-    <h2><?php echo ' No clubs found';
-        } ?>
-    </h2>
 
+    <h2>
+        <?php echo ' No clubs found';
+        }
+        ?>
+    </h2>
 
 </body>
 </html>
