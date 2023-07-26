@@ -49,7 +49,6 @@ $response = $client->request('GET', $URL, [
 //}
 
 
-
 ?>
 <html>
 <body>
@@ -81,33 +80,30 @@ $response = $client->request('GET', $URL, [
 <ul>
     <h1>BRS GOLF CLUB LINKS</h1>
 
-<?php
-if (200 == $response->getStatusCode()) {
-    $name = $response->getBody();
+    <?php
+    if (200 == $response->getStatusCode()) {
+        $name = $response->getBody();
 
-    $data = json_decode($name);
-    $clubData =[];
+        $data = json_decode($name);
+        $clubData = [];
 
-         foreach ($clubData as $club):
-        $uri = 'https://www.brsgolf.com/' . $club->club_id;
-        ?>
-        <li>
+        foreach ($clubData as $club):
+            $uri = 'https://www.brsgolf.com/' . $club->club_id;
+            ?>
+            <li>
 
-            <?= $club->name; ?>
-            <a href="<?php echo $uri ?>">
-                <?php echo "(" . $uri . $club->club_id . ")"; ?>
-            </a>
-        </li>
-
-
+                <?= $club->name; ?>
+                <a href="<?php echo $uri ?>">
+                    <?php echo "(" . $uri . $club->club_id . ")"; ?>
+                </a>
+            </li>
 
 
-
- <?php endforeach;
-} else {?>
-<h2><?php echo ' No clubs found';
-}?>
-</h2>
+        <?php endforeach;
+    } else { ?>
+    <h2><?php echo ' No clubs found';
+        } ?>
+    </h2>
 
 
 </body>
