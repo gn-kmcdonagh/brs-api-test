@@ -18,6 +18,7 @@ $response = $client->request('GET', $url, [
     'auth' => [
         $username,
         $password
+
     ]
 ]);
 
@@ -55,7 +56,7 @@ $response = $client->request('GET', $url, [
 
     <h1>BRS GOLF CLUB LINKS</h1>
 
-    <?php
+<?php
     if (200 == $response->getStatusCode()) {
         $responseData = $response->getBody();
 
@@ -81,7 +82,7 @@ $response = $client->request('GET', $url, [
     <h2>
         <?php echo ' No clubs found';
         }
-        ?>
+    ?>
     </h2>
 
 </body>
