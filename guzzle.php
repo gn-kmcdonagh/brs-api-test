@@ -18,6 +18,7 @@ $response = $client->request('GET', $url, [
     'auth' => [
         $username,
         $password
+
     ]
 ]);
 
