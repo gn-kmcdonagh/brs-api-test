@@ -21,10 +21,6 @@ $response = $client->request('GET', $url, [
 
     ]
 ]);
-
-
-
-
 ?>
 <html>
 <body>
